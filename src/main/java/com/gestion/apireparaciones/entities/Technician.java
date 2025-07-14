@@ -1,7 +1,11 @@
 package com.gestion.apireparaciones.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Technicians")
 public class Technician {

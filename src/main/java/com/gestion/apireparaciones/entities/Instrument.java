@@ -2,11 +2,14 @@ package com.gestion.apireparaciones.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
-
+@Getter
+@Setter
 @Entity
-@Table(name = "Instrument")
+@Table(name = "Instruments")
 public class Instrument {
 
     @Id
