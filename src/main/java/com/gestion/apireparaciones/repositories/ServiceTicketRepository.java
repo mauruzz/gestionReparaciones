@@ -1,9 +1,9 @@
 package com.gestion.apireparaciones.repositories;
 
-import com.gestion.apireparaciones.entities.Instrument;
+import com.gestion.apireparaciones.entities.ServiceTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface InstrumentRepository extends JpaRepository<Instrument,Long> {
+public interface ServiceTicketRepository extends JpaRepository<ServiceTicket,Long> {
 }
