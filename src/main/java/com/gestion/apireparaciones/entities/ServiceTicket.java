@@ -39,7 +39,7 @@ public class ServiceTicket {
     private Instrument instrument;
 
     @OneToOne
-    @JoinColumn(name = "id_technician")
-    private Technician technician;
+    @JoinColumn(name = "id_user")
+    private User user;
 
 }

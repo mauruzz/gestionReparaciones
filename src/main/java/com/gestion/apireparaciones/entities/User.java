@@ -7,16 +7,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Technicians")
-public class Technician {
+@Table(name = "Users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_technician;
+    private Long id_user;
 
-    @OneToOne(mappedBy = "technician")
+    @OneToOne(mappedBy = "user")
     private ServiceTicket serviceTicket;
 
+    private String username;
+    private String password;
+
+    private String type;
     private String name;
     private String email;
     private String branch;
