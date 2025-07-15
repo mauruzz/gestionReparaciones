@@ -2,6 +2,7 @@ package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.repositories.ClientRepository;
+import com.gestion.apireparaciones.servicies.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,36 +12,37 @@ import java.util.List;
 @RequestMapping("/api/clients")
 public class ClientController {
 
-    private final ClientRepository clientRepo;
+    private final ClientService clientService;
 
-    public ClientController(ClientRepository clientRepo) { this.clientRepo = clientRepo; }
+    public ClientController(ClientRepository clientService) { this.clientService = clientService; }
 
     @GetMapping("/all")
-    public List<Client> getAll() { return clientRepo.findAll(); }
+    public List<Client> getAll() { return clientService.findAll(); }
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> getById(@PathVariable Long id) {
-        return clientRepo.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Client c = clientService.findById(id);
+        return (c != null)  ? ResponseEntity.ok(c)
+                            : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/save")
-    public Client create(@RequestBody Client c) { return clientRepo.save(c); }
+    public Client create(@RequestBody Client c) { return clientService.save(c); }
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client c) {
-
-        if (!clientRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        c.setId_client(id);
-        return ResponseEntity.ok(clientRepo.save(c));
+        Client u = clientService.update(id, c);
+        return (u != null)  ? ResponseEntity.ok(u)
+                            : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (clientService.findById(id) != null){
+            clientService.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
 
-        if (!clientRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        clientRepo.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 }
