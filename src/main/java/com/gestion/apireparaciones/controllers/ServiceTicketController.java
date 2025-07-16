@@ -1,7 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.ServiceTicket;
-import com.gestion.apireparaciones.repositories.ServiceTicketRepository;
+import com.gestion.apireparaciones.servicies.ServiceTicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,37 +11,37 @@ import java.util.List;
 @RequestMapping("/api/service_ticket")
 public class ServiceTicketController {
 
-    private final ServiceTicketRepository ServiceTicketRepo;
+    private final ServiceTicketService serviceTicketService;
 
-    public ServiceTicketController(ServiceTicketRepository ServiceTicketRepo) { this.ServiceTicketRepo = ServiceTicketRepo; }
+    public ServiceTicketController(ServiceTicketService serviceTicketService) { this.serviceTicketService = serviceTicketService; }
 
     @GetMapping("/all")
-    public List<ServiceTicket> getAll() { return ServiceTicketRepo.findAll(); }
+    public List<ServiceTicket> getAll() { return serviceTicketService.findAll(); }
 
     @GetMapping("/{id}")
     public ResponseEntity<ServiceTicket> getById(@PathVariable Long id) {
-        return ServiceTicketRepo.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        ServiceTicket st = serviceTicketService.findById(id);
+        return (st != null)  ? ResponseEntity.ok(st)
+                : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/save")
-    public ServiceTicket create(@RequestBody ServiceTicket st) { return ServiceTicketRepo.save(st); }
+    public ServiceTicket create(@RequestBody ServiceTicket st) { return serviceTicketService.save(st); }
 
     @PutMapping("/{id}")
     public ResponseEntity<ServiceTicket> update(@PathVariable Long id, @RequestBody ServiceTicket st) {
-
-        if (!ServiceTicketRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        st.setId_service_ticket(id);
-        return ResponseEntity.ok(ServiceTicketRepo.save(st));
+        ServiceTicket u = serviceTicketService.update(id, st);
+        return (u != null)  ? ResponseEntity.ok(u)
+                : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-
-        if (!ServiceTicketRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        ServiceTicketRepo.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (serviceTicketService.findById(id) != null){
+            serviceTicketService.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

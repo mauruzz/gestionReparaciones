@@ -14,7 +14,7 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    public ClientController(ClientRepository clientService) { this.clientService = clientService; }
+    public ClientController(ClientService clientService) { this.clientService = clientService; }
 
     @GetMapping("/all")
     public List<Client> getAll() { return clientService.findAll(); }
@@ -43,6 +43,5 @@ public class ClientController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
-
     }
 }
