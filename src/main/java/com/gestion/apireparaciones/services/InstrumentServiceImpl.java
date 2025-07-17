@@ -1,14 +1,37 @@
 package com.gestion.apireparaciones.services;
 
+import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.Instrument;
+import com.gestion.apireparaciones.repositories.ClientRepository;
 import com.gestion.apireparaciones.repositories.InstrumentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class InstrumentServiceImpl implements InstrumentService{
+public class InstrumentServiceImpl /*implements InstrumentService*/ extends GenericServiceImpl<Instrument, Long>{
 
+    private final InstrumentRepository instrumentRepo;
+
+    public InstrumentServiceImpl(InstrumentRepository instrumentRepo) {
+        super(instrumentRepo);
+        this.instrumentRepo = instrumentRepo;
+    }
+
+
+
+    public Instrument update(Long id, Instrument i) {
+        if (!instrumentRepo.existsById(id)) return null;
+        i.setId_instrument(id);
+        return instrumentRepo.save(i);
+    }
+
+
+    /*
+    //
+    //  SI TODO FUNCIONA CON EL CODIGO TAL CUAL BORRAR TODO LO QUE ESTA COMENTADO, ES CÓDIGO VIEJO.
+    //  ESTOY IMPLEMENTANDO UN SERVICIO GENERICO PARA EL CRUD HABITUAL
+    //
     private final InstrumentRepository instrumentRepo;
 
     public InstrumentServiceImpl(InstrumentRepository instrumentRepo) { this.instrumentRepo = instrumentRepo; }
@@ -40,4 +63,6 @@ public class InstrumentServiceImpl implements InstrumentService{
     public void delete(Long id) {
         instrumentRepo.deleteById(id);
     }
+
+     */
 }

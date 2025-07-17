@@ -1,8 +1,11 @@
 package com.gestion.apireparaciones.controllers;
 
 
+import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.Status;
 import com.gestion.apireparaciones.repositories.StatusRepository;
+import com.gestion.apireparaciones.services.StatusService;
+import com.gestion.apireparaciones.services.StatusServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,44 +15,53 @@ import java.util.List;
 @RequestMapping("/api/status")
 public class StatusController {
 
-    private final StatusRepository statusRepo;
+    private final StatusServiceImpl statusService;
 
-    public StatusController(StatusRepository statusRepo) {
-        this.statusRepo = statusRepo;
+    public StatusController(StatusServiceImpl statusService) {
+        this.statusService = statusService;
     }
+
+    /*
+    version original
+
+    private final StatusService statusService;
+
+    public StatusController(StatusService statusService) {
+        this.statusService = statusService;
+    }
+    * */
 
     @GetMapping("/all")
     public List<Status> getAll() {
-        return statusRepo.findAll();
+        return statusService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Status> getById(@PathVariable Long id) {
-        return statusRepo.findById(id).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Status s = statusService.findById(id);
+        return (s != null)  ? ResponseEntity.ok(s)
+                : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/save")
-    public Status create(@RequestBody Status estado) {
-        return statusRepo.save(estado);
+    public Status create(@RequestBody Status s) {
+        return statusService.save(s);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Status> update(@PathVariable Long id, @RequestBody Status estado) {
-
-        if (!statusRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        estado.setId_status(id);
-        return ResponseEntity.ok(statusRepo.save(estado));
+    public ResponseEntity<Status> update(@PathVariable Long id, @RequestBody Status s) {
+        Status u = statusService.update(id, s);
+        return (u != null)  ? ResponseEntity.ok(u)
+                : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-
-        if (!statusRepo.existsById(id)) return ResponseEntity.notFound().build();
-
-        statusRepo.deleteById(id);
-        return ResponseEntity.noContent().build();
+        if (statusService.findById(id) != null){
+            statusService.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

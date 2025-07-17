@@ -7,8 +7,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl /*implements ClientService */ extends GenericServiceImpl<Client, Long> {
 
+    private final ClientRepository clientRepo;
+
+    public ClientServiceImpl(ClientRepository clientRepo) {
+        super(clientRepo);
+        this.clientRepo = clientRepo;
+    }
+
+
+
+    public Client update(Long id, Client c) {
+        if (!clientRepo.existsById(id)) return null;
+        c.setId_client(id);
+        return clientRepo.save(c);
+    }
+
+
+/*
+
+    //
+    //  SI TODO FUNCIONA CON EL CODIGO TAL CUAL BORRAR TODO LO QUE ESTA COMENTADO, ES CÓDIGO VIEJO.
+    //  ESTOY IMPLEMENTANDO UN SERVICIO GENERICO PARA EL CRUD HABITUAL
+    //
     private final ClientRepository clientRepo;
 
     public ClientServiceImpl(ClientRepository clientRepo) { this.clientRepo = clientRepo; }
@@ -40,4 +62,6 @@ public class ClientServiceImpl implements ClientService {
     public void delete(Long id) {
         clientRepo.deleteById(id);
     }
+
+ */
 }

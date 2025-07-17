@@ -2,6 +2,7 @@ package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.services.ServiceTicketService;
+import com.gestion.apireparaciones.services.ServiceTicketServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,16 @@ import java.util.List;
 @RequestMapping("/api/service_ticket")
 public class ServiceTicketController {
 
+    private final ServiceTicketServiceImpl serviceTicketService;
+
+    public ServiceTicketController(ServiceTicketServiceImpl serviceTicketService) { this.serviceTicketService = serviceTicketService; }
+/* VERSION ORIGIANL
     private final ServiceTicketService serviceTicketService;
 
     public ServiceTicketController(ServiceTicketService serviceTicketService) { this.serviceTicketService = serviceTicketService; }
+
+
+ */
 
     @GetMapping("/all")
     public List<ServiceTicket> getAll() { return serviceTicketService.findAll(); }
