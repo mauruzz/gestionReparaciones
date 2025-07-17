@@ -1,8 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.Client;
-import com.gestion.apireparaciones.repositories.ClientRepository;
-import com.gestion.apireparaciones.servicies.ClientService;
+import com.gestion.apireparaciones.services.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

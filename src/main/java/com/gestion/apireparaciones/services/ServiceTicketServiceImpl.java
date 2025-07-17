@@ -1,4 +1,4 @@
-package com.gestion.apireparaciones.servicies;
+package com.gestion.apireparaciones.services;
 
 import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.repositories.ServiceTicketRepository;

@@ -1,7 +1,6 @@
-package com.gestion.apireparaciones.servicies;
+package com.gestion.apireparaciones.services;
 
 import com.gestion.apireparaciones.entities.Instrument;
-import com.gestion.apireparaciones.repositories.ClientRepository;
 import com.gestion.apireparaciones.repositories.InstrumentRepository;
 import org.springframework.stereotype.Service;
 

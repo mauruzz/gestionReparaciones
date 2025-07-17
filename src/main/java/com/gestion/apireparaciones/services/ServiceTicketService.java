@@ -1,6 +1,5 @@
-package com.gestion.apireparaciones.servicies;
+package com.gestion.apireparaciones.services;
 
-import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.ServiceTicket;
 
 import java.util.List;
