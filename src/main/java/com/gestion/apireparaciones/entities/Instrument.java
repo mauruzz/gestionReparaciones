@@ -20,14 +20,14 @@ public class Instrument {
     @JoinColumn(name = "id_service_ticket", nullable = false)
     private ServiceTicket serviceTicket;
 
-    private String producto;
-    private String marca;
-    private String modelo;
-    private String nro_serie;
-    private LocalDate fecha_compra;
-    private String motivo;
-    private String garantia;
-    private String aviso;
-    private String observaciones;
+    private String product;
+    private String brand;
+    private String model;
+    private String serial_number;
+    private LocalDate purchase_datea;
+    private String reason;
+    private Boolean warranty;
+    private String notice;
+    private String comments;
 
 }

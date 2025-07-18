@@ -21,7 +21,7 @@ public class ServiceTicket {
     @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 
-    private LocalDate fecha_ingreso;
+    private LocalDate entry_date;
 
     @OneToOne
     @JoinColumn(name = "id_status")
