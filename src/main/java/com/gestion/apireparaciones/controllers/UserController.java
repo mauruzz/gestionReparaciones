@@ -1,9 +1,6 @@
 package com.gestion.apireparaciones.controllers;
 
-import com.gestion.apireparaciones.entities.Status;
 import com.gestion.apireparaciones.entities.User;
-import com.gestion.apireparaciones.repositories.UserRepository;
-import com.gestion.apireparaciones.services.StatusServiceImpl;
 import com.gestion.apireparaciones.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

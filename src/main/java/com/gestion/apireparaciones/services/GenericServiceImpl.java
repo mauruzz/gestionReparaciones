@@ -1,6 +1,5 @@
 package com.gestion.apireparaciones.services;
 
-import com.gestion.apireparaciones.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

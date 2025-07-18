@@ -1,10 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
 
-import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.Status;
-import com.gestion.apireparaciones.repositories.StatusRepository;
-import com.gestion.apireparaciones.services.StatusService;
 import com.gestion.apireparaciones.services.StatusServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +18,6 @@ public class StatusController {
         this.statusService = statusService;
     }
 
-    /*
-    version original
-
-    private final StatusService statusService;
-
-    public StatusController(StatusService statusService) {
-        this.statusService = statusService;
-    }
-    * */
 
     @GetMapping("/all")
     public List<Status> getAll() {

@@ -2,7 +2,6 @@ package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.Instrument;
 import com.gestion.apireparaciones.services.InstrumentService;
-import com.gestion.apireparaciones.services.InstrumentServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +11,12 @@ import java.util.List;
 @RequestMapping("/api/instruments")
 public class InstrumentController {
 
-    private final InstrumentServiceImpl instrumentService;
-
-    public InstrumentController(InstrumentServiceImpl instrumentService) {
-        this.instrumentService = instrumentService;
-    }
-
-    /*  VERSION ORIGINAL
     private final InstrumentService instrumentService;
-
 
     public InstrumentController(InstrumentService instrumentService) {
         this.instrumentService = instrumentService;
     }
- */
+
 
     @GetMapping("/all")
     public List<Instrument> getAll() {

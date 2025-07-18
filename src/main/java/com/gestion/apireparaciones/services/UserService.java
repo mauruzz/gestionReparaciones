@@ -15,6 +15,7 @@ public class UserService extends GenericServiceImpl<User, Long> {
     }
 
 
+
     public User update(Long id, User u) {
         if (!userRepo.existsById(id)) return null;
         u.setId_user(id);

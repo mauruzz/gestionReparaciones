@@ -1,15 +1,25 @@
 package com.gestion.apireparaciones.services;
 
 import com.gestion.apireparaciones.entities.Instrument;
+import com.gestion.apireparaciones.repositories.InstrumentRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+public class InstrumentService extends GenericServiceImpl<Instrument, Long>{
 
-public interface InstrumentService {
+    private final InstrumentRepository instrumentRepo;
 
-    List<Instrument> findAll();
-    Instrument findById(Long id);
-    Instrument save(Instrument i);
-    Instrument update(Long id, Instrument i);
-    void delete(Long id);
+    public InstrumentService(InstrumentRepository instrumentRepo) {
+        super(instrumentRepo);
+        this.instrumentRepo = instrumentRepo;
+    }
+
+
+
+    public Instrument update(Long id, Instrument i) {
+        if (!instrumentRepo.existsById(id)) return null;
+        i.setId_instrument(id);
+        return instrumentRepo.save(i);
+    }
 
 }

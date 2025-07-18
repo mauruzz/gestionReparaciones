@@ -2,7 +2,6 @@ package com.gestion.apireparaciones.controllers;
 
 import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.services.ClientService;
-import com.gestion.apireparaciones.services.ClientServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +11,11 @@ import java.util.List;
 @RequestMapping("/api/clients")
 public class ClientController {
 
-    private final ClientServiceImpl clientService;
-
-    public ClientController(ClientServiceImpl clientService) { this.clientService = clientService; }
-
-    /*  VERSION ORIGINAL
     private final ClientService clientService;
 
     public ClientController(ClientService clientService) { this.clientService = clientService; }
 
 
-     */
     @GetMapping("/all")
     public List<Client> getAll() { return clientService.findAll(); }
 
