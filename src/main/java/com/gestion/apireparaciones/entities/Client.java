@@ -21,7 +21,7 @@ public class Client {
     private String phone;
     private String address;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client")
     private List<ServiceTicket> tickets;
 
 }
