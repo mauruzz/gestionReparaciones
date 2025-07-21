@@ -1,5 +1,7 @@
 package com.gestion.apireparaciones.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +18,13 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_client;
 
+    @OneToMany(mappedBy = "client")
+    @JsonManagedReference
+    private List<ServiceTicket> tickets;
+
     private String name;
     private String email;
     private String phone;
     private String address;
-
-    @OneToMany(mappedBy = "client")
-    private List<ServiceTicket> tickets;
 
 }

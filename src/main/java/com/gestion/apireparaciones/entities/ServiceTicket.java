@@ -1,5 +1,7 @@
 package com.gestion.apireparaciones.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,17 +20,21 @@ public class ServiceTicket {
     private Long id_service_ticket;
 
     @OneToOne(mappedBy = "serviceTicket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Instrument instrument;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_user")
     private User user;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_status")
     private Status status;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 

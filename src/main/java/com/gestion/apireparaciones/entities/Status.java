@@ -1,6 +1,7 @@
 package com.gestion.apireparaciones.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Status {
     private Long id_status;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ServiceTicket> serviceTicket;
 
 

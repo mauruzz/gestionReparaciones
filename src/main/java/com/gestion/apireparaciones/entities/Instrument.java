@@ -1,6 +1,7 @@
 package com.gestion.apireparaciones.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,8 @@ public class Instrument {
     private Long id_instrument;
 
     @OneToOne
-    @JoinColumn(name = "id_service_ticket", nullable = false)
+    @JsonBackReference
+    @JoinColumn(name = "id_service_ticket")
     private ServiceTicket serviceTicket;
 
     private String product;

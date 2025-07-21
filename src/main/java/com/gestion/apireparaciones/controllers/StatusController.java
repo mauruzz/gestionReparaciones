@@ -2,7 +2,7 @@ package com.gestion.apireparaciones.controllers;
 
 
 import com.gestion.apireparaciones.entities.Status;
-import com.gestion.apireparaciones.services.StatusServiceImpl;
+import com.gestion.apireparaciones.services.StatusService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/api/status")
 public class StatusController {
 
-    private final StatusServiceImpl statusService;
+    private final StatusService statusService;
 
-    public StatusController(StatusServiceImpl statusService) {
+    public StatusController(StatusService statusService) {
         this.statusService = statusService;
     }
 

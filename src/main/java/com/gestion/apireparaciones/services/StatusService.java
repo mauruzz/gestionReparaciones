@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class StatusServiceImpl extends GenericServiceImpl<Status, Long> {
+public class StatusService extends GenericServiceImpl<Status, Long> {
 
     private final StatusRepository statusRepo;
 
-    public StatusServiceImpl(StatusRepository statusRepo) {
+    public StatusService(StatusRepository statusRepo) {
         super(statusRepo);
         this.statusRepo = statusRepo;
     }
