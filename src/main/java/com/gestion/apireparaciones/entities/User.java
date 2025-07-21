@@ -18,7 +18,7 @@ public class User {
     private Long id_user;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-ticket")
     private List<ServiceTicket> serviceTicket;
 
     private String username;

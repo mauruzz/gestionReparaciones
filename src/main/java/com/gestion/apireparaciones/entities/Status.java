@@ -19,7 +19,7 @@ public class Status {
     private Long id_status;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "status-ticket")
     private List<ServiceTicket> serviceTicket;
 
 
