@@ -6,12 +6,14 @@ import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.entities.User;
 import com.gestion.apireparaciones.services.ClientService;
 import com.gestion.apireparaciones.services.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ServiceTicketMapper {
 
 
     // Mapper de entidad → DTO
-    public static ServiceTicketDTO toDTO(ServiceTicket st) {
+    public ServiceTicketDTO toDTO(ServiceTicket st) {
         ServiceTicketDTO dto = new ServiceTicketDTO();
         if (st != null) {
             dto.setId_service_ticket(st.getId_service_ticket());
@@ -55,7 +57,7 @@ public class ServiceTicketMapper {
     }
 
     // Mapper de DTO → entidad
-    public static ServiceTicket toEntity(ServiceTicketDTO dto) {
+    public ServiceTicket toEntity(ServiceTicketDTO dto) {
         ServiceTicket st = new ServiceTicket();
         User u = new User();
         Instrument i = new Instrument();

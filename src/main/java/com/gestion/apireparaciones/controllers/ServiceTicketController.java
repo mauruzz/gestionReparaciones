@@ -16,44 +16,35 @@ import java.util.List;
 public class ServiceTicketController {
 
     private final ServiceTicketService serviceTicketService;
+    private final ServiceTicketMapper mapper;
 
-    public ServiceTicketController(ServiceTicketService serviceTicketService) {
+    public ServiceTicketController(ServiceTicketService serviceTicketService, ServiceTicketMapper mapper) {
         this.serviceTicketService = serviceTicketService;
+        this.mapper = mapper;
     }
 
-/*
-    @GetMapping("/all")
-    public List<ServiceTicket> getAll() { return serviceTicketService.findAll(); }
-*/
     @GetMapping("/all")
     public ResponseEntity<List<ServiceTicketDTO>> findAll() {
         List<ServiceTicket> tickets = serviceTicketService.findAll();
-        List<ServiceTicketDTO> dtos = tickets.stream().map(ServiceTicketMapper::toDTO).toList();
+        List<ServiceTicketDTO> dtos = tickets.stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(dtos);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceTicket> getById(@PathVariable Long id) {
+    public ResponseEntity<ServiceTicketDTO> getById(@PathVariable Long id) {
         ServiceTicket st = serviceTicketService.findById(id);
-        return (st != null)  ? ResponseEntity.ok(st)
-                : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(mapper.toDTO(st));
     }
 
-    /*  Original antes del DTO
-    @PostMapping("/save")
-    public ServiceTicket create(@RequestBody ServiceTicket st) {
-        return serviceTicketService.save(st);
-    }
-    */
     @PostMapping("/save")
     public ResponseEntity<ServiceTicketDTO> create(@RequestBody ServiceTicketDTO dto) {
-        ServiceTicket saved = serviceTicketService.save(ServiceTicketMapper.toEntity(dto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(ServiceTicketMapper.toDTO(saved));
+        ServiceTicket saved = serviceTicketService.save(mapper.toEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(saved));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ServiceTicket> update(@PathVariable Long id, @RequestBody ServiceTicket st) {
-        ServiceTicket u = serviceTicketService.update(id, st);
-        return (u != null)  ? ResponseEntity.ok(u)
+    public ResponseEntity<ServiceTicketDTO> update(@PathVariable Long id, @RequestBody ServiceTicketDTO dto) {
+        ServiceTicket u = serviceTicketService.update(id, mapper.toEntity(dto));
+        return (u != null)  ? ResponseEntity.ok(mapper.toDTO(u))
                 : ResponseEntity.notFound().build();
     }
 
