@@ -26,7 +26,7 @@ public class Instrument {
     private String brand;
     private String model;
     private String serial_number;
-    private LocalDate purchase_datea;
+    private LocalDate purchase_date;
     private String reason;
     private Boolean warranty;
     private String notice;
