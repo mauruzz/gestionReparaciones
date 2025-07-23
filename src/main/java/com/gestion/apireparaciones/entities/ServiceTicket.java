@@ -20,21 +20,17 @@ public class ServiceTicket {
     private Long id_service_ticket;
 
     @OneToOne(mappedBy = "serviceTicket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "instrument-ticket")
     private Instrument instrument;
 
     @ManyToOne
-    @JsonBackReference(value = "user-ticket")
     @JoinColumn(name = "id_user")
     private User user;
 
     @ManyToOne
-    @JsonBackReference(value = "status-ticket")
     @JoinColumn(name = "id_status")
     private Status status;
 
     @ManyToOne
-    @JsonBackReference(value = "client-ticket")
     @JoinColumn(name = "id_client")
     private Client client;
 

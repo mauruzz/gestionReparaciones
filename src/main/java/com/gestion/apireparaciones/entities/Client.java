@@ -19,7 +19,6 @@ public class Client {
     private Long id_client;
 
     @OneToMany(mappedBy = "client")
-    @JsonManagedReference(value = "client-ticket")
     private List<ServiceTicket> tickets;
 
     private String name;

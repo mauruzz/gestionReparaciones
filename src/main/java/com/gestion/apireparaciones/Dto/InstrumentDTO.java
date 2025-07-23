@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class InstrumentDTO {
 
     private Long id_instrument;
+    private ServiceTicket serviceTicket;
     private Long serviceTicketId;
     private String product;
     private String brand;

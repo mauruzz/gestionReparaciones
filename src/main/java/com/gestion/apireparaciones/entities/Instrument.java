@@ -18,7 +18,6 @@ public class Instrument {
     private Long id_instrument;
 
     @OneToOne
-    @JsonBackReference(value = "instrument-ticket")
     @JoinColumn(name = "id_service_ticket")
     private ServiceTicket serviceTicket;
 

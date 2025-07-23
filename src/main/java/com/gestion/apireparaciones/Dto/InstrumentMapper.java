@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface InstrumentMapper {
-    @Mapping(target = "serviceTicketId", source = "serviceTicket.id")
+    @Mapping(target = "serviceTicketId", source = "serviceTicket.id_service_ticket")
     InstrumentDTO toDTO(Instrument instrument);
 
     @InheritInverseConfiguration
