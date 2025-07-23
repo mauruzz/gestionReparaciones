@@ -22,6 +22,4 @@ public class ClientService extends GenericServiceImpl<Client, Long> {
         return clientRepo.save(c);
     }
 
-    //public List<Client> add
-
 }

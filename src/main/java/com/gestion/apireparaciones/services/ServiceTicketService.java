@@ -23,7 +23,6 @@ public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long
 
     @Override
     public ServiceTicket save(ServiceTicket st) {
-        //instrumentService.save(st.getInstrument());
 
         Instrument i = st.getInstrument();
         if (i != null) {

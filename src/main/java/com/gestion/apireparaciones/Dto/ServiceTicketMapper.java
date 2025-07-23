@@ -4,8 +4,6 @@ import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.Instrument;
 import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.entities.User;
-import com.gestion.apireparaciones.services.ClientService;
-import com.gestion.apireparaciones.services.UserService;
 import org.springframework.stereotype.Component;
 
 @Component

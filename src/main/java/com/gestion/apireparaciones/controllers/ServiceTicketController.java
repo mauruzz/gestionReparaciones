@@ -4,7 +4,6 @@ import com.gestion.apireparaciones.Dto.ServiceTicketDTO;
 import com.gestion.apireparaciones.Dto.ServiceTicketMapper;
 import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.services.ServiceTicketService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

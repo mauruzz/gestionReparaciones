@@ -1,7 +1,12 @@
 package com.gestion.apireparaciones.controllers;
 
+import com.gestion.apireparaciones.Dto.ClientDTO;
+import com.gestion.apireparaciones.Dto.ClientMapper;
+import com.gestion.apireparaciones.Dto.ServiceTicketDTO;
 import com.gestion.apireparaciones.entities.Client;
+import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.services.ClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,27 +17,38 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
+    private final ClientMapper clientMapper;
 
-    public ClientController(ClientService clientService) { this.clientService = clientService; }
+    public ClientController(ClientService clientService, ClientMapper clientMapper) {
+        this.clientService = clientService;
+        this.clientMapper = clientMapper;
+    }
 
 
     @GetMapping("/all")
-    public List<Client> getAll() { return clientService.findAll(); }
+    public ResponseEntity<List<ClientDTO>> getAll() {
+        List<Client> c = clientService.findAll();
+        List<ClientDTO> dtos = c.stream().map(clientMapper::toDTO).toList();
+        return ResponseEntity.ok(dtos);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getById(@PathVariable Long id) {
+    public ResponseEntity<ClientDTO> getById(@PathVariable Long id) {
         Client c = clientService.findById(id);
-        return (c != null)  ? ResponseEntity.ok(c)
+        return (c != null)  ? ResponseEntity.ok(clientMapper.toDTO(c))
                             : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/save")
-    public Client create(@RequestBody Client c) { return clientService.save(c); }
+    public ResponseEntity<ClientDTO> create(@RequestBody ClientDTO dto) {
+        Client saved = clientService.save(clientMapper.toEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientMapper.toDTO(saved));
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client c) {
-        Client u = clientService.update(id, c);
-        return (u != null)  ? ResponseEntity.ok(u)
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
+        Client u = clientService.update(id, clientMapper.toEntity(dto));
+        return (u != null)  ? ResponseEntity.ok(clientMapper.toDTO(u))
                             : ResponseEntity.notFound().build();
     }
 

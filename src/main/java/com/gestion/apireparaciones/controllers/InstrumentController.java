@@ -1,7 +1,12 @@
 package com.gestion.apireparaciones.controllers;
 
+import com.gestion.apireparaciones.Dto.ClientDTO;
+import com.gestion.apireparaciones.Dto.InstrumentDTO;
+import com.gestion.apireparaciones.Dto.InstrumentMapper;
+import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.entities.Instrument;
 import com.gestion.apireparaciones.services.InstrumentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,33 +17,39 @@ import java.util.List;
 public class InstrumentController {
 
     private final InstrumentService instrumentService;
+    private final InstrumentMapper instrumentMapper;
 
-    public InstrumentController(InstrumentService instrumentService) {
+    public InstrumentController(InstrumentService instrumentService, InstrumentMapper instrumentMapper) {
         this.instrumentService = instrumentService;
+        this.instrumentMapper = instrumentMapper;
     }
 
 
     @GetMapping("/all")
-    public List<Instrument> getAll() {
-        return instrumentService.findAll();
+    public ResponseEntity<List<InstrumentDTO>> getAll() {
+        List<Instrument> i = instrumentService.findAll();
+        List<InstrumentDTO> dtos = i.stream().map(instrumentMapper::toDTO).toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Instrument> getById(@PathVariable Long id) {
+    public ResponseEntity<InstrumentDTO> getById(@PathVariable Long id) {
         Instrument i = instrumentService.findById(id);
-        return (i != null)  ? ResponseEntity.ok(i)
+        return (i != null)  ? ResponseEntity.ok(instrumentMapper.toDTO(i))
                 : ResponseEntity.notFound().build();
+
     }
 
     @PostMapping("/save")
-    public Instrument create(@RequestBody Instrument i) {
-        return instrumentService.save(i);
+    public ResponseEntity<InstrumentDTO> create(@RequestBody InstrumentDTO dto) {
+        Instrument saved = instrumentService.save(instrumentMapper.toEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(instrumentMapper.toDTO(saved));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Instrument> update(@PathVariable Long id, @RequestBody Instrument i) {
-        Instrument u = instrumentService.update(id, i);
-        return (u != null)  ? ResponseEntity.ok(u)
+    public ResponseEntity<InstrumentDTO> update(@PathVariable Long id, @RequestBody InstrumentDTO dto) {
+        Instrument u = instrumentService.update(id, instrumentMapper.toEntity(dto));
+        return (u != null)  ? ResponseEntity.ok(instrumentMapper.toDTO(u))
                 : ResponseEntity.notFound().build();
     }
 
