@@ -1,16 +1,17 @@
 package com.gestion.apireparaciones.Dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gestion.apireparaciones.entities.ServiceTicket;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class InstrumentDTO {
 
     private Long id_instrument;
-    private ServiceTicket serviceTicket;
+    //private ServiceTicket serviceTicket;
     private Long serviceTicketId;
     private String product;
     private String brand;
