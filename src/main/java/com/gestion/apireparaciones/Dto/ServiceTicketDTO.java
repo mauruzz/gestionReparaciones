@@ -24,29 +24,4 @@ public class ServiceTicketDTO {
     private ClientDTO client;
     private InstrumentDTO instrument;
 
-/*
-    //  Datos de la entidad Client
-    private Long id_client;
-    private String clientName;
-    private String clientEmail;
-    private String clientPhone;
-    private String clientAddress;
-
-    //  Datos de la entidad Intrument
-    private Long id_instrument;
-    private String instrumentProduct;
-    private String instrumentBrand;
-    private String instrumentModel;
-    private String instrumentSerial_number;
-    private LocalDate instrumentPurchase_date;
-    private String instrumentReason;
-    private Boolean instrumentWarranty;
-    private String instrumentNotice;
-    private String instrumentComments;
-
-    //Datos de la entidad User
-    private Long id_user;
-
- */
-
 }
