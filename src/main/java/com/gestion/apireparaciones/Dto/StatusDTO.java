@@ -1,10 +1,8 @@
 package com.gestion.apireparaciones.Dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class StatusDTO {
 
     private Long id_status;

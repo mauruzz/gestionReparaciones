@@ -1,14 +1,11 @@
 package com.gestion.apireparaciones.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "Users")
 public class User {

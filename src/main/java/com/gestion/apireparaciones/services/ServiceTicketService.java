@@ -6,7 +6,6 @@ import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.repositories.ServiceTicketRepository;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long> {
 

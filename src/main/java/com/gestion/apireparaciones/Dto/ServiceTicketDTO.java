@@ -1,13 +1,11 @@
 package com.gestion.apireparaciones.Dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class ServiceTicketDTO {
 
 
@@ -22,6 +20,11 @@ public class ServiceTicketDTO {
     private String comments;
     private String report;
 
+    private UserDTO user;
+    private ClientDTO client;
+    private InstrumentDTO instrument;
+
+/*
     //  Datos de la entidad Client
     private Long id_client;
     private String clientName;
@@ -43,5 +46,7 @@ public class ServiceTicketDTO {
 
     //Datos de la entidad User
     private Long id_user;
+
+ */
 
 }

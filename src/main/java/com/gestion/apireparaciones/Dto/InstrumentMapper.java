@@ -1,6 +1,5 @@
 package com.gestion.apireparaciones.Dto;
 
-import com.gestion.apireparaciones.Dto.InstrumentDTO;
 import com.gestion.apireparaciones.entities.Instrument;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

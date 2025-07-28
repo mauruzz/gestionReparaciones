@@ -1,14 +1,11 @@
 package com.gestion.apireparaciones.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
-@Getter
-@Setter
+
+@Data
 @Entity
 @Table(name = "Instruments")
 public class Instrument {

@@ -1,13 +1,10 @@
 package com.gestion.apireparaciones.Dto;
 
-import com.gestion.apireparaciones.entities.ServiceTicket;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class InstrumentDTO {
 
     private Long id_instrument;

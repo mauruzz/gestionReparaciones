@@ -1,10 +1,8 @@
 package com.gestion.apireparaciones.Dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ClientDTO {
 
     private Long id_client;
