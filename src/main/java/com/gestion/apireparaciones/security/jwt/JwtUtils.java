@@ -19,7 +19,7 @@ public class JwtUtils {
     public String generateJwtToken(CustomUserDetails customUserDetails) {
         return Jwts.builder()
                 .setSubject(customUserDetails.getUsername())
-                .claim("type", customUserDetails.getType()) // para usar el rol luego
+                .claim("role", "ROLE_" + customUserDetails.getType())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -38,4 +38,6 @@ public class JwtUtils {
             return false;
         }
     }
+
+    public int getExpirationMs() { return jwtExpirationMs; }
 }
