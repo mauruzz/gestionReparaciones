@@ -1,4 +1,4 @@
-package com.gestion.apireparaciones.Dto;
+package com.gestion.apireparaciones.dto;
 
 import lombok.Data;
 

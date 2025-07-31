@@ -1,4 +1,4 @@
-package com.gestion.apireparaciones.Dto;
+package com.gestion.apireparaciones.dto;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ public class UserDTO {
 
     private Long id_user;
     private String username;
-    //private String password;  ENCRIPTAR PASSWORD AL ENVIARLO POR DTO
+    private String password;
     private String type;
     private String name;
     private String email;

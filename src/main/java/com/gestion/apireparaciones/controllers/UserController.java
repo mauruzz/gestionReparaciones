@@ -1,7 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
-import com.gestion.apireparaciones.Dto.UserDTO;
-import com.gestion.apireparaciones.Dto.UserMapper;
+import com.gestion.apireparaciones.dto.UserDTO;
+import com.gestion.apireparaciones.dto.UserMapper;
 import com.gestion.apireparaciones.entities.User;
 import com.gestion.apireparaciones.services.UserService;
 import org.springframework.http.HttpStatus;

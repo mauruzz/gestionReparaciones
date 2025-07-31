@@ -1,7 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
-import com.gestion.apireparaciones.Dto.ClientDTO;
-import com.gestion.apireparaciones.Dto.ClientMapper;
+import com.gestion.apireparaciones.dto.ClientDTO;
+import com.gestion.apireparaciones.dto.ClientMapper;
 import com.gestion.apireparaciones.entities.Client;
 import com.gestion.apireparaciones.services.ClientService;
 import org.springframework.http.HttpStatus;

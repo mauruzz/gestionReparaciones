@@ -1,7 +1,7 @@
 package com.gestion.apireparaciones.controllers;
 
-import com.gestion.apireparaciones.Dto.ServiceTicketDTO;
-import com.gestion.apireparaciones.Dto.ServiceTicketMapper;
+import com.gestion.apireparaciones.dto.ServiceTicketDTO;
+import com.gestion.apireparaciones.dto.ServiceTicketMapper;
 import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.services.ServiceTicketService;
 import org.springframework.http.HttpStatus;

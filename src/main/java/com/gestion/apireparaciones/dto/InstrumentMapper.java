@@ -1,4 +1,4 @@
-package com.gestion.apireparaciones.Dto;
+package com.gestion.apireparaciones.dto;
 
 import com.gestion.apireparaciones.entities.Instrument;
 import org.mapstruct.InheritInverseConfiguration;
