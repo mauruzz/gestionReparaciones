@@ -6,6 +6,7 @@ import com.gestion.apireparaciones.entities.User;
 import com.gestion.apireparaciones.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAll() {
         List<User> u = userService.findAll();

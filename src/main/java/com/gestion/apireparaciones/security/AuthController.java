@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.*;
                         new CustomUserDetails(user)  // reutilizamos el adaptador
                 );
 
-                long expiresIn = jwtUtils.getExpirationMs(); // agregamos un getter en JwtUtils (ver abajo)
+                long expiresIn = jwtUtils.getExpirationMs();
                 return ResponseEntity.ok(
                         new LoginResponse(token, expiresIn, user.getUsername(), user.getType())
                 );
@@ -66,7 +66,7 @@ import org.springframework.web.bind.annotation.*;
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword())); // importante
-            if (user.getType() == null) user.setType("INVITADO"); // default
+            if (user.getType() == null) user.setType("admin"); // default
             userRepository.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
