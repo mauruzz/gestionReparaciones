@@ -23,7 +23,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAll() {
         List<User> u = userService.findAll();
