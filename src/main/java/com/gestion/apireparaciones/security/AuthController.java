@@ -1,9 +1,9 @@
 package com.gestion.apireparaciones.security;
 
 import com.gestion.apireparaciones.security.dto.RegisterRequest;
+import com.gestion.apireparaciones.services.UserService;
 import jakarta.validation.Valid;
 import com.gestion.apireparaciones.entities.User;
-import com.gestion.apireparaciones.repositories.UserRepository;
 import com.gestion.apireparaciones.security.dto.LoginRequest;
 import com.gestion.apireparaciones.security.dto.LoginResponse;
 import com.gestion.apireparaciones.security.jwt.JwtUtils;
@@ -25,7 +25,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,8 +40,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
 
-        if (userRepository.existsByUsername(request.getUsername())) {
-            return ResponseEntity.badRequest().body("El nombre de usuario ya existe.");
+        if (!userService.isUsernameAvailable(request.getUsername())) {
+            return ResponseEntity.badRequest().body("Ya existe un usuario con ese nombre");
         }
 
         User user = new User();
@@ -52,9 +52,8 @@ public class AuthController {
         user.setEmail(request.getEmail());
         user.setBranch(request.getBranch());
 
-        userRepository.save(user);
-
-        return ResponseEntity.ok("Usuario registrado con éxito.");
+        userService.save(user);
+        return ResponseEntity.ok("Usuario registrado con éxito");
     }
 
 

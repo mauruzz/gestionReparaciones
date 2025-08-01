@@ -3,7 +3,11 @@ package com.gestion.apireparaciones.controllers;
 import com.gestion.apireparaciones.dto.UserDTO;
 import com.gestion.apireparaciones.dto.UserMapper;
 import com.gestion.apireparaciones.entities.User;
+import com.gestion.apireparaciones.security.dto.RegisterRequest;
+import com.gestion.apireparaciones.security.dto.RegisterRequestMapper;
 import com.gestion.apireparaciones.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,10 +21,12 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final RegisterRequestMapper registerRequestMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper, RegisterRequestMapper registerRequestMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.registerRequestMapper = registerRequestMapper;
     }
 
     //@PreAuthorize("hasRole('ADMIN')")
@@ -60,4 +66,22 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<RegisterRequest> updateWithPassword(@PathVariable Long id, @Valid @RequestBody RegisterRequest dto) {
+        /*User u = userService.update(id, registerRequestMapper.toEntity(dto));
+        return (u != null)  ? ResponseEntity.ok(registerRequestMapper.toDTO(u))
+                : ResponseEntity.notFound().build();
+
+
+         */
+        try {
+            User u = userService.update(id, registerRequestMapper.toEntity(dto));
+            return ResponseEntity.ok(registerRequestMapper.toDTO(u)).;
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el usuario");
+        }
+
+    }
 }

@@ -21,6 +21,8 @@ public class UserService extends GenericServiceImpl<User, Long> {
         return userRepo.save(u);
     }
 
-
+    public boolean isUsernameAvailable(String username) {
+        return !userRepo.existsByUsername(username);
+    }
 
 }

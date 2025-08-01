@@ -7,9 +7,9 @@ public class LoginResponse {
 
     private String token;
     private String tokenType = "Bearer";
-    private long expiresIn; // en ms
+    private long expiresIn;
     private String username;
-    private String role;    // viene de user.type
+    private String role;
 
     public LoginResponse(String token, long expiresIn, String username, String role) {
         this.token = token;
