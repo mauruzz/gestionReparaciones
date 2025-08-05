@@ -57,7 +57,7 @@ public class AuthController {
     }
 
 
-    // 👉 Login de usuario
+    // Login de usuario
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(

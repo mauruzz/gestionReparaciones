@@ -66,17 +66,11 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RegisterRequest> updateWithPassword(@PathVariable Long id, @Valid @RequestBody RegisterRequest dto) {
-        /*User u = userService.update(id, registerRequestMapper.toEntity(dto));
-        return (u != null)  ? ResponseEntity.ok(registerRequestMapper.toDTO(u))
-                : ResponseEntity.notFound().build();
-
-
-         */
+    @PutMapping("/wPass/{id}")
+    public ResponseEntity<?> updateWithPassword(@PathVariable Long id, @Valid @RequestBody RegisterRequest dto) {
         try {
             User u = userService.update(id, registerRequestMapper.toEntity(dto));
-            return ResponseEntity.ok(registerRequestMapper.toDTO(u)).;
+            return ResponseEntity.ok(userMapper.toDTO(u));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         } catch (Exception e) {
