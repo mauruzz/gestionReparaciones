@@ -15,6 +15,8 @@ import java.util.List;
 @RequestMapping("/api/status")
 public class StatusController {
 
+    private final String initialStatus = "Recepcionado";        // Variable de estado inicial, hay que agregarla a mano a la base de datos
+
     private final StatusService statusService;
     private final StatusMapper statusMapper;
 
@@ -58,6 +60,15 @@ public class StatusController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/initial_status")
+    public ResponseEntity<StatusDTO> getInitialStatus() {
+        return ResponseEntity.ok(
+                statusMapper.toDTO(
+                        statusService.getStatusByDescription(initialStatus).get()
+                )
+        );
     }
 
 }

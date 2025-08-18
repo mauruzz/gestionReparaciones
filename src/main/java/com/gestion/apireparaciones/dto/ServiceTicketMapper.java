@@ -8,7 +8,7 @@ import org.mapstruct.Mappings;
 
 @Mapper(
         componentModel = "spring",
-        uses = {UserMapper.class, ClientMapper.class, InstrumentMapper.class}
+        uses = {UserMapper.class, ClientMapper.class, InstrumentMapper.class, StatusMapper.class}
 )
 public interface ServiceTicketMapper {
 
@@ -16,6 +16,7 @@ public interface ServiceTicketMapper {
             @Mapping(source = "user", target = "user"),
             @Mapping(source = "client", target = "client"),
             @Mapping(source = "instrument", target = "instrument"),
+            @Mapping(source = "status", target = "status"),
             @Mapping(source = "id_service_ticket", target = "id_service_ticket"),
             @Mapping(source = "entry_date", target = "entry_date"),
             @Mapping(source = "defect", target = "defect"),

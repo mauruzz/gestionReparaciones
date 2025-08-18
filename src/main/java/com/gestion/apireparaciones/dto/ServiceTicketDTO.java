@@ -23,5 +23,6 @@ public class ServiceTicketDTO {
     private UserDTO user;
     private ClientDTO client;
     private InstrumentDTO instrument;
+    private StatusDTO status;
 
 }

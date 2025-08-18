@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -70,10 +72,12 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
+
         String jwt = jwtUtils.generateJwtToken(userDetails.getUsername(), userDetails.getType());
         String role = userDetails.getType();
+        Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
 
-        LoginResponse response = new LoginResponse(jwt, expirationMs, userDetails.getUsername(), role);
+        LoginResponse response = new LoginResponse(jwt, expirationMs, userDetails.getUsername(), role, user.get().getId_user(), user.get().getName(), user.get().getEmail(), user.get().getBranch());
 
         return ResponseEntity.ok(response);
     }
