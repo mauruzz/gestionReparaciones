@@ -7,5 +7,7 @@ public class StatusDTO {
 
     private Long id_status;
     private String description;
+    private String color;
+    private boolean enable;
 
 }

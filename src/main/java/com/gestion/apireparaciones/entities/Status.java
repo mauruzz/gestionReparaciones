@@ -19,6 +19,8 @@ public class Status {
 
 
     private String description;
+    private String color;
+    private boolean enable;
 
 
 }
