@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -36,16 +37,17 @@ public class ServiceTicketController {
         return ResponseEntity.ok(mapper.toDTO(st));
     }
 
-    @GetMapping("/filtered-list")
-    public ResponseEntity<List<ServiceTicketDTO>> getTickets(
+    @GetMapping("/filtered_list")
+    public ResponseEntity<List<ServiceTicketDTO>> getFilteredTickets(
             @RequestParam(required = false) String startDate,   // fecha desde
             @RequestParam(required = false) String endDate,     // fecha hasta
             @RequestParam(required = false) String clientName,  // nombre cliente
             @RequestParam(required = false) String model,       // modelo instrumento
             @RequestParam(required = false) String product      // producto
     ) {
-        List<ServiceTicket> tickets = serviceTicketService.findTickets(startDate, endDate, clientName, model, product);
-        return ResponseEntity.ok(tickets.stream().map(mapper::toDTO).toList());
+        List<ServiceTicket> tickets = serviceTicketService.filterTickets(startDate, endDate, clientName, model, product);
+        return ResponseEntity.ok(tickets != null ? tickets.stream().map(mapper::toDTO).toList() : Collections.emptyList());
+
     }
 
     @PostMapping("/save")

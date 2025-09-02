@@ -54,7 +54,7 @@ public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long
         return serviceTicketRepo.save(st);
     }
 
-    public List<ServiceTicket> findTickets(String startDate, String endDate, String clientName, String model, String product) {
+    public List<ServiceTicket> filterTickets(String startDate, String endDate, String clientName, String model, String product) {
         LocalDate start = (startDate != null) ? LocalDate.parse(startDate) : null;
         LocalDate end = (endDate != null) ? LocalDate.parse(endDate) : null;
 
