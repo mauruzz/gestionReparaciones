@@ -6,6 +6,9 @@ import com.gestion.apireparaciones.entities.ServiceTicket;
 import com.gestion.apireparaciones.repositories.ServiceTicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long> {
 
@@ -45,11 +48,17 @@ public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long
         return super.save(st);
     }
 
-
     public ServiceTicket update(Long id, ServiceTicket st) {
         if (!serviceTicketRepo.existsById(id)) return null;
         st.setId_service_ticket(id);
         return serviceTicketRepo.save(st);
+    }
+
+    public List<ServiceTicket> findTickets(String startDate, String endDate, String clientName, String model, String product) {
+        LocalDate start = (startDate != null) ? LocalDate.parse(startDate) : null;
+        LocalDate end = (endDate != null) ? LocalDate.parse(endDate) : null;
+
+        return serviceTicketRepo.findByFilters(start, end, clientName, model, product);
     }
 
 }
