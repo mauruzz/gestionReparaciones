@@ -32,4 +32,5 @@ public interface ServiceTicketMapper {
     @InheritInverseConfiguration
     ServiceTicket toEntity(ServiceTicketDTO dto);
 
+
 }

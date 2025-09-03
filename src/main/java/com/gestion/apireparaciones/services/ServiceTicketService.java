@@ -1,9 +1,10 @@
 package com.gestion.apireparaciones.services;
 
-import com.gestion.apireparaciones.entities.Client;
-import com.gestion.apireparaciones.entities.Instrument;
-import com.gestion.apireparaciones.entities.ServiceTicket;
-import com.gestion.apireparaciones.repositories.ServiceTicketRepository;
+import com.gestion.apireparaciones.dto.ServiceTicketDTO;
+import com.gestion.apireparaciones.dto.ServiceTicketMapper;
+import com.gestion.apireparaciones.entities.*;
+import com.gestion.apireparaciones.repositories.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,14 +14,18 @@ import java.util.List;
 public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long> {
 
     private final ServiceTicketRepository serviceTicketRepo;
-    private final InstrumentService instrumentService;
     private final ClientService clientService;
+    private final InstrumentService instrumentService;
+    private final StatusService statusService;
+    private final UserService userService;
 
-    public ServiceTicketService(ServiceTicketRepository serviceTicketRepo, InstrumentService instrumentService, ClientService clientService) {
+    public ServiceTicketService(ServiceTicketRepository serviceTicketRepo, ClientService clientService, InstrumentService instrumentService, StatusService statusService, UserService userService) {
         super(serviceTicketRepo);
         this.serviceTicketRepo = serviceTicketRepo;
-        this.instrumentService = instrumentService;
         this.clientService = clientService;
+        this.instrumentService = instrumentService;
+        this.statusService = statusService;
+        this.userService = userService;
     }
 
     @Override
@@ -48,11 +53,40 @@ public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long
         return super.save(st);
     }
 
+
+    @Transactional
     public ServiceTicket update(Long id, ServiceTicket st) {
-        if (!serviceTicketRepo.existsById(id)) return null;
-        st.setId_service_ticket(id);
-        return serviceTicketRepo.save(st);
+        ServiceTicket existing = serviceTicketRepo.findById(id).orElse(null);
+        if (existing == null) return null;
+
+        // Actualizar SOLO los campos propios de ServiceTicket
+        existing.setEntry_date(st.getEntry_date());
+        existing.setDefect(st.getDefect());
+        existing.setWork_done(st.getWork_done());
+        existing.setBudget(st.getBudget());
+        existing.setTotal_cost(st.getTotal_cost());
+        existing.setDelivery_date(st.getDelivery_date());
+        existing.setComments(st.getComments());
+        existing.setReport(st.getReport());
+
+        // Si además querés modificar Instrument → usar su servicio
+        if (st.getInstrument() != null && st.getInstrument().getId_instrument() != null) {
+            instrumentService.update(st.getInstrument().getId_instrument(), st.getInstrument());
+        }
+
+        // Si además querés modificar Client
+        if (st.getClient() != null && st.getClient().getId_client() != null) {
+            clientService.update(st.getClient().getId_client(), st.getClient());
+        }
+
+
+
+        return serviceTicketRepo.save(existing);
     }
+
+
+
+
 
     public List<ServiceTicket> filterTickets(String startDate, String endDate, String clientName, String model, String product) {
         LocalDate start = (startDate != null) ? LocalDate.parse(startDate) : null;
