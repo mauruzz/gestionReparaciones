@@ -79,6 +79,10 @@ public class ServiceTicketService extends GenericServiceImpl<ServiceTicket, Long
             clientService.update(st.getClient().getId_client(), st.getClient());
         }
 
+        // Si además querés modificar Status
+        if (st.getStatus() != null && st.getStatus().getId_status() != null) {
+            statusService.update(st.getStatus().getId_status(), st.getStatus());
+        }
 
 
         return serviceTicketRepo.save(existing);
